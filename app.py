@@ -67,7 +67,7 @@ def counts_to_dataframe(counts: dict, shots: int) -> pd.DataFrame:
 
 
 def render_about_section() -> None:
-    st.expander("📚 About Superdense Coding", expanded=True).markdown(
+    st.expander("📚 About Superdense Coding", expanded=False).markdown(
         """
         **Superdense Coding** is a quantum communication protocol that enables transmitting **2 classical bits** 
         using only **1 quantum qubit** shared between two parties (Alice and Bob).
@@ -140,7 +140,7 @@ def render_simulation_results(data, shots: int, simulate_interceptor: bool) -> N
 
 
 def main() -> None:
-    st.set_page_config(page_title="Superdense Coding Simulator", layout="centered")
+    st.set_page_config(page_title="Superdense Coding Simulator", layout="wide")
     st.title("Superdense Coding Simulator")
     st.write("**Developed By Filipe Chagas Ferraz (github.com/filipechagasdev)**")
 

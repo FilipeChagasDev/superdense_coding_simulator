@@ -116,9 +116,10 @@ def render_controls() -> tuple[str, bool, int]:
 
 def render_quantum_circuit(circuit) -> None:
     fig = circuit.draw("mpl", fold=100)
-    st.write("**Generated Quantum Circuit:**")
-    st.pyplot(fig)
-    plt.close(fig)
+    with st.container(border=True):
+        st.write("**GENERATED QUANTUM CIRCUIT**")
+        st.pyplot(fig)
+        plt.close(fig)
 
 
 def render_simulation_results(data, shots: int, simulate_interceptor: bool) -> None:
@@ -145,12 +146,15 @@ def main() -> None:
     st.write("**Developed By Filipe Chagas Ferraz (github.com/filipechagasdev)**")
 
     render_about_section()
-    selected_bits, simulate_interceptor, n_shots = render_controls()
+    col1, col2 = st.columns(2)
+    with col1:
+        selected_bits, simulate_interceptor, n_shots = render_controls()
 
-    circuit = build_superdense_coding_circuit(selected_bits, simulate_interceptor)
-    render_quantum_circuit(circuit)
+    with col2:
+        circuit = build_superdense_coding_circuit(selected_bits, simulate_interceptor)
+        render_quantum_circuit(circuit)
 
-    if st.button("Simulate", use_container_width=True):
+    if st.button("Simulate", type="primary", use_container_width=True):
         data = run_simulation(circuit, n_shots)
         render_simulation_results(data, n_shots, simulate_interceptor)
 

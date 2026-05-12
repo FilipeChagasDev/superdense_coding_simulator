@@ -4,6 +4,7 @@ import pandas as pd
 from qiskit import QuantumCircuit
 from qiskit.circuit import QuantumRegister, ClassicalRegister
 from qiskit_aer import AerSimulator
+from qiskit_ibm_runtime import SamplerV2
 
 CLASSICAL_OPTIONS = ["00", "01", "10", "11"]
 
@@ -54,7 +55,6 @@ def build_superdense_coding_circuit(selected_bits: str, simulate_interceptor: bo
 
 def run_simulation(circuit: QuantumCircuit, shots: int):
     simulator = get_simulator()
-    from qiskit_aer.primitives import SamplerV2
     sampler = SamplerV2(simulator)
     result = sampler.run((circuit,), shots=shots).result()
     return result[0].data
